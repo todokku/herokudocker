@@ -46,6 +46,12 @@ namespace herokudocker.Controllers
         [Route("addvideo")]
         public async Task<IActionResult> AddVideoAsync([FromForm] VideoViewModel model)
         {
+
+            if (string.IsNullOrEmpty(model.EmbedCode)) 
+            {
+                return RedirectToAction("Error");
+            }
+
             using (var context = new MyContext())
             {
                 context.Videos.Add(new Video()
