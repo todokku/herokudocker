@@ -24,6 +24,16 @@ namespace herokudocker.Controllers
             return View();
         }
 
+        public async Task<IActionResult> AddVideoAsync()
+        {
+            var context = new MyContext();
+            context.Videos.Add(new Video() { EmbedCode = "asd", CreatedAt = DateTime.UtcNow, Desc = "init" });
+
+            await context.SaveChangesAsync();
+
+            return Ok();
+        }
+
         public IActionResult Privacy()
         {
             return View();

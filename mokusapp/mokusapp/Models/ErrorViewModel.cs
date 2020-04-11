@@ -1,5 +1,3 @@
-using System;
-
 namespace herokudocker.Models
 {
     public class ErrorViewModel
