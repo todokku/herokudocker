@@ -16,8 +16,7 @@ jobs:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         APP_NAME: ${{ 'mokusapp' }}
       run: |
-        dir
-        cd ../../mokusapp/mokusapp
+        cd mokusapp/mokusapp
         docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
         docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
         heroku container:push web -a $APP_NAME
