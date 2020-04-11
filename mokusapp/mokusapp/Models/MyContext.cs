@@ -14,8 +14,8 @@ namespace herokudocker.Models
             var userName = "slppjedhxbbwnk";
             var password = "d7642369b5226d43115e5e79caf1b1d86656eae9d72e1577795e8678db055280";
 
-            var connString = $"Server={host}; " + $"Port={port}; " +
-                $"User Id={userName};" + $"Password={password};" + $"Database={databaseName};";
+            var connString = $"Server={host};" + $"Port={port};" +
+                $"Username={userName};" + $"Password={password};" + $"Database={databaseName};";
 
             optionsBuilder.UseNpgsql(connString);
         }
