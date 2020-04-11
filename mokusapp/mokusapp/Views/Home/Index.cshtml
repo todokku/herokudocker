@@ -6,14 +6,26 @@
     <h1 class="display-4">@ViewData["message"]</h1>
 </div>
 
-<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="788" height="443" type="text/html"
-src="https://www.youtube.com/embed/TPhSEsGuXYA?autoplay=0&fs=1&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&origin=https://youtubeembedcode.com">
-</iframe>
+<form asp-action="AddVideo" asp-controller="Home" method="post">
+    <label>Youtube video code</label>
+    <input name="EmbedCode" placeholder="The youtube video code in the url" />
+    <label>Optional comment</label>
+    <input name="Desc" placeholder="Your comment comes here" />
+    <input type="submit" />
+</form>
 
-<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="788" height="443" type="text/html"
-        src="https://www.youtube.com/embed/Ha-F_dyl69g?autoplay=0&fs=1&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&origin=https://youtubeembedcode.com">
-</iframe>
+@{ 
+    var videos = (ViewData["videos"] as List<VideoViewModel>);
+    for (int i = 0; i < videos.Count; i++)
+    {
+        <div class="card">
+            <h4 class="card-header">@videos[i].Desc</h4>
+            <div class="card-body">
+                <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="788" height="443" type="text/html"
+                        src=$"https://www.youtube.com/embed/{@videos[i].EmbedCode}?autoplay=0&fs=1&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&origin=https://youtubeembedcode.com">
+                </iframe>
+            </div>
+        </div>
+    }
+}
 
-<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="788" height="443" type="text/html"
-        src="https://www.youtube.com/embed/RZXZcnBY-Us?autoplay=0&fs=1&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&origin=https://youtubeembedcode.com">
-</iframe>

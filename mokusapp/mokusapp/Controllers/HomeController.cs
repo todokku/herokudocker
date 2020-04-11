@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using herokudocker.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace herokudocker.Controllers
 {
@@ -18,20 +19,40 @@ namespace herokudocker.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            ViewData["message"] = "Sziamia Cunci Mókus";
+            using (var context = new MyContext())
+            {
+                var videos = await context.Videos
+                    .OrderByDescending(x => x.CreatedAt)
+                    .Take(1000)
+                    .ToListAsync();
+
+                var videoViewModels = videos.Select(x => new VideoViewModel()
+                {
+                    EmbedCode = x.EmbedCode,
+                    Desc = x.Desc,
+                    CreatedAt = x.CreatedAt
+                }).ToList();
+
+                ViewData["message"] = "What youtube video are you wathcing?";
+                ViewData["videos"] = videoViewModels;
+            }
             return View();
         }
 
-        public async Task<IActionResult> AddVideoAsync()
+        [HttpPost]
+        [Route("addvideo")]
+        public async Task<IActionResult> AddVideoAsync([FromForm] VideoViewModel model)
         {
-            var context = new MyContext();
-            context.Videos.Add(new Video() { EmbedCode = "asd", CreatedAt = DateTime.UtcNow, Desc = "init" });
+            using (var context = new MyContext())
+            {
+                context.Videos.Add(new Video() { EmbedCode = "asd", CreatedAt = DateTime.UtcNow, Desc = "init" });
 
-            await context.SaveChangesAsync();
+                await context.SaveChangesAsync();
+            }
 
-            return Ok();
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()
