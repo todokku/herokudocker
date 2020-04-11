@@ -1,26 +1,17 @@
-###
-# NuGet restore
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
-WORKDIR /src
-COPY *.sln .
-COPY mokusapp/*.csproj mokusapp/
-RUN dotnet restore
-COPY . .
-
-# testing
-FROM build AS testing
-WORKDIR /src/mokusapp
-RUN dotnet build
-
-# publish
-FROM build AS publish
-WORKDIR /src/mokusapp
-RUN dotnet publish -c Release -o /src/publish
-
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 WORKDIR /app
-COPY --from=publish /src/publish .
-# ENTRYPOINT ["dotnet", "Colors.API.dll"]
-# heroku uses the following
+
+# Copy csproj and restore as distinct layers
+COPY *.csproj ./
+RUN dotnet restore
+
+# Copy everything else and build
+COPY . ./
+RUN dotnet publish -c Release -o out
+
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
+WORKDIR /app
+COPY --from=build-env /app/out .
 CMD ASPNETCORE_URLS=http://*:$PORT dotnet mokusapp.dll
 ###
