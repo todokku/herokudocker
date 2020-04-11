@@ -38,6 +38,7 @@ namespace herokudocker.Controllers
                 ViewData["message"] = "What youtube video are you wathcing?";
                 ViewData["videos"] = videoViewModels;
             }
+
             return View();
         }
 
@@ -47,7 +48,12 @@ namespace herokudocker.Controllers
         {
             using (var context = new MyContext())
             {
-                context.Videos.Add(new Video() { EmbedCode = "asd", CreatedAt = DateTime.UtcNow, Desc = "init" });
+                context.Videos.Add(new Video()
+                {
+                    EmbedCode = model.EmbedCode,
+                    CreatedAt = DateTime.UtcNow, 
+                    Desc = model.Desc
+                });
 
                 await context.SaveChangesAsync();
             }

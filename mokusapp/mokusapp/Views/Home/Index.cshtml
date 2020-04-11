@@ -7,22 +7,26 @@
 </div>
 
 <form asp-action="AddVideo" asp-controller="Home" method="post">
-    <label>Youtube video code</label>
-    <input name="EmbedCode" placeholder="The youtube video code in the url" />
-    <label>Optional comment</label>
-    <input name="Desc" placeholder="Your comment comes here" />
-    <input type="submit" />
+    <div class="form-group">
+        <label>Youtube video code</label>
+        <input class="form-control" name="EmbedCode" placeholder="The youtube video code in the url">
+    </div>
+    <div class="form-group">
+        <label>Optional comment</label>
+        <input type="text" class="form-control" placeholder="Your comment">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-
+<br/>
 @{ 
     var videos = (ViewData["videos"] as List<VideoViewModel>);
     for (int i = 0; i < videos.Count; i++)
     {
         <div class="card">
-            <h4 class="card-header">@videos[i].Desc</h4>
+            <h4 class="card-header">Comment: @videos[i].Desc</h4>
             <div class="card-body">
-                <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="788" height="443" type="text/html"
-                        src=$"https://www.youtube.com/embed/{@videos[i].EmbedCode}?autoplay=0&fs=1&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&origin=https://youtubeembedcode.com">
+                <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="500" height="300" type="text/html"
+                        src="https://www.youtube.com/embed/@videos[i].EmbedCode?autoplay=0&fs=1&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&origin=https://youtubeembedcode.com">
                 </iframe>
             </div>
         </div>
