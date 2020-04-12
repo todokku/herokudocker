@@ -29,12 +29,13 @@
 </script>
 
 <div class="text-center">
-    <h1 class="display-4">@ViewData["message"]</h1>
+    <h4 class="display-4">@ViewData["message"]</h4>
 </div>
 
 <form asp-action="AddPost" asp-controller="Home" method="post">
     <div class="row">
-        <div class="col-md-8 offset-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
             <div class="form-group">
                 <label>Title</label>
                 <input type="text" name="Title" class="form-control" />
@@ -42,7 +43,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8 offset-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
             <div class="form-group">
                 <label>Url</label>
                 <input type="text" name="Url" class="form-control" />
@@ -50,7 +52,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8 offset-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
             <div class="form-group">
                 <label>Content</label>
                 <textarea class="form-control" name="Content" rows="5"></textarea>
@@ -58,7 +61,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8 offset-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
