@@ -59,8 +59,7 @@ html {
 }
 
 body {
-    background: rgb(112,210,198);
-    background: linear-gradient(90deg, rgba(112,210,198,1) 0%, rgba(32,101,58,1) 100%);
+    background: linear-gradient(90deg, rgba(112,210,198,1) 0%, #4ea7b5 100%);
     /* Margin bottom by footer height */
     margin-bottom: 63px;
 }
