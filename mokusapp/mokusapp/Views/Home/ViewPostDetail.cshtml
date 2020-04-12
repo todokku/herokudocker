@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#addComment").click(function () {
+            $("#commentSection").show();
+            $("#addComment" + index).hide();
+            $("#hideComment" + index).show();
+        });
+
+        $("#hideComment").click(function () {
+            $("#commentSection").hide();
+            $("#addComment").show();
+            $("#hideComment").hide();
+        });
+
+        $("#sendComment").click(function () {
+            $("#addCommentForm").submit();
+        });
+    });
+
+</script>
+@{
+    var post = (ViewData["post"] as PostViewModel);
+    <div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" style="margin-bottom:10px;">
+                <div class="card">
+                    <h6 class="card-header" style="background-color:white">Title: @post.Title</h6>
+                    <div class="card-body">
+                        <p>
+                            <a href="@post.Url"> @post.Url </a>
+                        </p>
+                        <p>@post.Content</p>
+                        <p>Created at: @post.CreatedAt</p>
+                        @if (@post.ComentCount == 0)
+                        {
+                            <p> No comments yet. </p>
+                        }
+                        else
+                        {
+                            <p> @post.ComentCount comments on this.</p>
+                        }
+                    </div>
+                    <div class="card-footer" style="background-color:white">
+                        <button id="addComment">Add comment</button>
+                        <button  id="hideComment" style="display:none">Close</button>
+                        <div id="commentSection" style="display:none">
+                            <form id="addCommentForm" asp-action="AddComment" asp-controller="Home" method="post">
+                                <input type="hidden" name="PostId" value="@post.Id" />
+                                <div class="form-group">
+                                    <label>Comment</label>
+                                    <textarea class="form-control" rows="7" name="Content"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button id="sendComment" class="form-control sendComment">Send</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

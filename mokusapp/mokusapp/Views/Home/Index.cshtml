@@ -2,6 +2,32 @@
     ViewData["Title"] = "Home Page";
 }
 
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $(".addComment").click(function () {
+            var index = $(this).attr("data-index");
+            $("#commentSection-" + index).show();
+            $("#addComment-" + index).hide();
+            $("#hideComment-" + index).show();
+        });
+
+        $(".hideComment").click(function () {
+            var index = $(this).attr("data-index");
+            $("#commentSection-" + index).hide();
+            $("#addComment-" + index).show();
+            $("#hideComment-" + index).hide();
+        });
+
+        $(".sendComment").click(function () {
+            var index = $(this).attr("data-index");
+            $("#addCommentForm-" + index).submit();
+        });
+    });
+
+</script>
+
 <div class="text-center">
     <h1 class="display-4">@ViewData["message"]</h1>
 </div>
@@ -39,7 +65,7 @@
         </div>
     </div>
 </form>
-<hr/>
+<hr />
 <br />
 @{
     var posts = (ViewData["posts"] as List<PostViewModel>);
@@ -67,14 +93,19 @@
                             }
                         </div>
                         <div class="card-footer" style="background-color:white">
-                            <button>Add comment</button>
-                            <button>Close</button>
-                            <div class="form-group">
-                                <label>Comment</label>
-                                <textarea class="form-control" rows="7"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <button class="form-control">Send</button>
+                            <button class="addComment" id="addComment-@i" data-index="@i">Add comment</button>
+                            <button class="hideComment" id="hideComment-@i" style="display:none" data-index="@i">Close</button>
+                            <div id="commentSection-@i" style="display:none" data-index="@i">
+                                <form id="addCommentForm-@i" asp-action="AddComment" data-index="@i" asp-controller="Home" method="post">
+                                    <input type="hidden" name="PostId" value="@posts[i].Id" />
+                                    <div class="form-group">
+                                        <label>Comment</label>
+                                        <textarea class="form-control" rows="7" name="Content"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <button id="sendComment-@i" data-index="@i" class="form-control sendComment">Send</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

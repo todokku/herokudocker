@@ -19,14 +19,54 @@ namespace herokudocker.Controllers
             _logger = logger;
         }
 
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        [Route("getpost")]
+        public async Task<IActionResult> GetPostById([FromQuery] int id)
         {
+            ViewData["message"] = "Valami bolondság";
+
             using (var context = new MyContext())
             {
-                ViewData["message"] = "Valami bolondság";
+                var post = await context.Posts.Where(x => x.Id == id).FirstOrDefaultAsync();
+                var postsViewModels = new PostViewModel()
+                {
+                    Title = post.Title,
+                    CreatedAt = post.CreatedAt,
+                    ComentCount = post.CommentCount,
+                    Content = post.Content,
+                    Id = post.Id,
+                    Url = post.Url
+                };
 
+                ViewData["post"] = postsViewModels;
+
+                var comments = await context.Comments.Where(x => x.PostId == id)
+                    .OrderByDescending(x => x.CreatedAt)
+                    .ToListAsync();
+
+                if (comments != null)
+                {
+                    var commentsViewModels = comments
+                        .Select(x =>
+                        new CommentViewModel
+                        {
+                            PostId = x.PostId,
+                            Content = x.Content
+                        }).ToList();
+
+                    ViewData["comments"] = commentsViewModels;
+                }
+            }
+
+            return View("ViewPostDetail");
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            ViewData["message"] = "Valami bolondság";
+            using (var context = new MyContext())
+            {
                 var posts = await context.Posts.OrderByDescending(x => x.CreatedAt).ToListAsync();
-
                 var postsViewModels = posts.Select(x => new PostViewModel()
                 {
                     Title = x.Title,
@@ -39,10 +79,9 @@ namespace herokudocker.Controllers
 
                 ViewData["posts"] = postsViewModels;
             }
-
             /*
             ViewData["posts"] = new List<PostViewModel>()
-            { 
+            {
                 new PostViewModel()
                 {
                     Id = 123,
@@ -63,6 +102,7 @@ namespace herokudocker.Controllers
                 },
             };
             */
+
             return View();
         }
 
@@ -70,7 +110,7 @@ namespace herokudocker.Controllers
         [Route("addpost")]
         public async Task<IActionResult> AddPost([FromForm] PostViewModel model)
         {
-            if (string.IsNullOrEmpty(model?.Title)) 
+            if (string.IsNullOrEmpty(model?.Title))
             {
                 return RedirectToAction("Error");
             }
@@ -91,6 +131,31 @@ namespace herokudocker.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [Route("addcomment")]
+        public async Task<IActionResult> AddComment([FromForm] CommentViewModel model)
+        {
+            if (string.IsNullOrEmpty(model?.Content))
+            {
+                return RedirectToAction("Error");
+            }
+
+            using (var context = new MyContext())
+            {
+                var comment = new Comment()
+                {
+                    CreatedAt = DateTime.UtcNow,
+                    PostId = model.PostId,
+                    Content = model.Content
+                };
+
+                context.Comments.Add(comment);
+                await context.SaveChangesAsync();
+            }
+
+            return Ok();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
