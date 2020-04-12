@@ -76,7 +76,7 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8" style="margin-bottom:10px;">
                     <div class="card">
-                        <h6 class="card-header" style="background-color:white">Title:<a href="getpost?id=@posts[i].Id"> @posts[i].Title</a></h6>
+                        <h6 class="card-header" style="background-color:white"><a href="getpost?id=@posts[i].Id"> @posts[i].Title</a></h6>
                         <div class="card-body">
                             <p>
                                 <a href="@posts[i].Url"> @posts[i].Url </a>
@@ -93,8 +93,8 @@
                             }
                         </div>
                         <div class="card-footer" style="background-color:white">
-                            <button class="addComment" id="addComment-@i" data-index="@i">Add comment</button>
-                            <button class="hideComment" id="hideComment-@i" style="display:none" data-index="@i">Close</button>
+                                <button class="addComment btn btn-primary" id="addComment-@i" data-index="@i">Add comment</button>
+                            <button class="hideComment btn btn-danger" id="hideComment-@i" style="display:none" data-index="@i">Close</button>
                             <div id="commentSection-@i" style="display:none" data-index="@i">
                                 <form id="addCommentForm-@i" asp-action="AddComment" data-index="@i" asp-controller="Home" method="post">
                                     <input type="hidden" name="PostId" value="@posts[i].Id" />
@@ -103,7 +103,7 @@
                                         <textarea class="form-control" rows="7" name="Content"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <button id="sendComment-@i" data-index="@i" class="form-control sendComment">Send</button>
+                                        <button id="sendComment-@i" data-index="@i" class="form-control btn btn-success sendComment">Send</button>
                                     </div>
                                 </form>
                             </div>
