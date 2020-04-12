@@ -68,7 +68,7 @@ namespace herokudocker.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ViewData["message"] = "Post vall";
+            ViewData["message"] = "Post wall";
             using (var context = new MyContext())
             {
                 var posts = await context.Posts.OrderByDescending(x => x.CreatedAt).ToListAsync();
