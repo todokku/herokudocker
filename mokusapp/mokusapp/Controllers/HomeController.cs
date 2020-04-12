@@ -54,7 +54,12 @@ namespace herokudocker.Controllers
                             Content = x.Content
                         }).ToList();
 
+                    ViewData["hascomments"] = true;
                     ViewData["comments"] = commentsViewModels;
+                }
+                else
+                {
+                    ViewData["hascomments"] = false;
                 }
             }
 
