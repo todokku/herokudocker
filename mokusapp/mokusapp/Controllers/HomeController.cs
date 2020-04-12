@@ -157,10 +157,14 @@ namespace herokudocker.Controllers
                 };
 
                 context.Comments.Add(comment);
+
+                var post = await context.Posts.Where(x => x.Id == model.PostId).SingleOrDefaultAsync();
+                post.CommentCount += 1;
+
                 await context.SaveChangesAsync();
             }
 
-            return Ok();
+            return RedirectToAction("GetPostById", new { id = model.PostId });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
