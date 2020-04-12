@@ -51,7 +51,8 @@ namespace herokudocker.Controllers
                         new CommentViewModel
                         {
                             PostId = x.PostId,
-                            Content = x.Content
+                            Content = x.Content,
+                            CreatedAt = x.CreatedAt
                         }).ToList();
 
                     ViewData["hascomments"] = true;
