@@ -4,7 +4,8 @@ namespace herokudocker.Models
 {
     public class MyContext : DbContext
     {
-        public virtual DbSet<Video> Videos { get; set; }
+        public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -22,7 +23,12 @@ namespace herokudocker.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Video>(entity =>
+            modelBuilder.Entity<Post>(entity =>
+            {
+                entity.HasKey(x => x.Id);
+            });
+
+            modelBuilder.Entity<Comment>(entity =>
             {
                 entity.HasKey(x => x.Id);
             });

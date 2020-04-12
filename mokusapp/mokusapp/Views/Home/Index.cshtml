@@ -6,30 +6,80 @@
     <h1 class="display-4">@ViewData["message"]</h1>
 </div>
 
-<form asp-action="AddVideo" asp-controller="Home" method="post">
-    <div class="form-group">
-        <label>Youtube video code</label>
-        <input class="form-control" name="EmbedCode" placeholder="The youtube video code in the url">
+<form asp-action="AddPost" asp-controller="Home" method="post">
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" name="Title" class="form-control" />
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label>Optional comment</label>
-        <input type="text" name="Desc" class="form-control" placeholder="Your comment">
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="form-group">
+                <label>Url</label>
+                <input type="text" name="Url" class="form-control" />
+            </div>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="form-group">
+                <label>Content</label>
+                <textarea class="form-control" name="Content" rows="5"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
 </form>
-<br/>
-@{ 
-    var videos = (ViewData["videos"] as List<VideoViewModel>);
-    for (int i = 0; i < videos.Count; i++)
+<hr/>
+<br />
+@{
+    var posts = (ViewData["posts"] as List<PostViewModel>);
+    for (int i = 0; i < posts.Count; i++)
     {
-        <div class="card">
-            <h4 class="card-header">Comment: @videos[i].Desc</h4>
-            <div class="card-body">
-                <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="500" height="300" type="text/html"
-                        src="https://www.youtube.com/embed/@videos[i].EmbedCode?autoplay=0&fs=1&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&origin=https://youtubeembedcode.com">
-                </iframe>
+        <div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8" style="margin-bottom:10px;">
+                    <div class="card">
+                        <h6 class="card-header" style="background-color:white">Title: @posts[i].Title</h6>
+                        <div class="card-body">
+                            <p>
+                                <a href="@posts[i].Url"> @posts[i].Url </a>
+                            </p>
+                            <p>@posts[i].Content</p>
+                            <p>Created at: @posts[i].CreatedAt</p>
+                            @if (@posts[i].ComentCount == 0)
+                            {
+                                <p> No comments yet. </p>
+                            }
+                            else
+                            {
+                                <p> @posts[i].ComentCount comments on this.</p>
+                            }
+                        </div>
+                        <div class="card-footer" style="background-color:white">
+                            <button>Add comment</button>
+                            <button>Close</button>
+                            <div class="form-group">
+                                <label>Comment</label>
+                                <textarea class="form-control" rows="7"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button class="form-control">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     }
 }
-
