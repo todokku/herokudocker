@@ -23,7 +23,7 @@ namespace herokudocker.Controllers
         [Route("getpost")]
         public async Task<IActionResult> GetPostById([FromQuery] int id)
         {
-            ViewData["message"] = "Valami bolondság";
+            ViewData["message"] = "Post wall";
 
             using (var context = new MyContext())
             {
@@ -68,7 +68,7 @@ namespace herokudocker.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ViewData["message"] = "Valami bolondság";
+            ViewData["message"] = "Post vall";
             using (var context = new MyContext())
             {
                 var posts = await context.Posts.OrderByDescending(x => x.CreatedAt).ToListAsync();
