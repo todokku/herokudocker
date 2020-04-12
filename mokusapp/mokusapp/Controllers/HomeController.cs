@@ -37,7 +37,7 @@ namespace herokudocker.Controllers
                     Url = x.Url
                 }).ToList();
 
-                ViewData["videos"] = postsViewModels;
+                ViewData["posts"] = postsViewModels;
             }
 
             /*
