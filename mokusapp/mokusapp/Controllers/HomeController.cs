@@ -20,6 +20,13 @@ namespace herokudocker.Controllers
         }
 
         [HttpGet]
+        [Route("map")]
+        public IActionResult Map()
+        {
+            return View("Map");
+        }
+
+        [HttpGet]
         [Route("getpost")]
         public async Task<IActionResult> GetPostById([FromQuery] int id)
         {
