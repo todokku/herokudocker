@@ -18,6 +18,18 @@ a {
   border-color: #1861ac;
 }
 
+#post {
+    width: 70%;
+    margin: auto;
+}
+
+@media only screen and (max-width: 600px) {
+    #post {
+        width: 95%;
+        margin: auto;
+    }
+}
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
   background-color: #1b6ec2;
