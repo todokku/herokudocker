@@ -33,38 +33,23 @@
 </div>
 
 <form asp-action="AddPost" asp-controller="Home" method="post">
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <div class="form-group">
-                <label>Title</label>
-                <input type="text" name="Title" class="form-control" />
-            </div>
+    <div class="card">
+        <div class="card-header">
+            <p> Create Post</p>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <div class="form-group">
-                <label>Url</label>
-                <input type="text" name="Url" class="form-control" />
-            </div>
+        <div class="card-body" style="width:70%;margin:auto">
+            <input type="text" name="Title" class="form-control" placeholder="Title" />
+            <input type="text" name="Url" class="form-control" placeholder="Url" />
+            <textarea class="form-control" name="Content" rows="5" placeholder="Content"></textarea>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <div class="form-group">
-                <label>Content</label>
-                <textarea class="form-control" name="Content" rows="5"></textarea>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -97,7 +82,7 @@
                             }
                         </div>
                         <div class="card-footer" style="background-color:white">
-                                <button class="addComment btn btn-primary" id="addComment-@i" data-index="@i">Add comment</button>
+                            <button class="addComment btn btn-primary" id="addComment-@i" data-index="@i">Add comment</button>
                             <button class="hideComment btn btn-danger" id="hideComment-@i" style="display:none" data-index="@i">Close</button>
                             <div id="commentSection-@i" style="display:none" data-index="@i">
                                 <form id="addCommentForm-@i" asp-action="AddComment" data-index="@i" asp-controller="Home" method="post">
