@@ -31,13 +31,12 @@
 <div class="text-center">
     <h4 class="display-4">@ViewData["message"]</h4>
 </div>
-
-<form asp-action="AddPost" asp-controller="Home" method="post">
-    <div class="card">
+<div class="card" style="width:70%;margin:auto">
+    <form asp-action="AddPost" asp-controller="Home" method="post">
         <div class="card-header">
             <p> Create Post</p>
         </div>
-        <div class="card-body" style="width:70%;margin:auto">
+        <div class="card-body" style="padding-bottom:10px;">
             <input type="text" name="Title" class="form-control" placeholder="Title" />
             <input type="text" name="Url" class="form-control" placeholder="Url" />
             <textarea class="form-control" name="Content" rows="5" placeholder="Content"></textarea>
@@ -52,8 +51,9 @@
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
+
 <hr />
 <br />
 @{
