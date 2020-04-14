@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using herokudocker.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace herokudocker.Controllers
 {
@@ -75,7 +76,7 @@ namespace herokudocker.Controllers
             return View("ViewPostDetail");
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Google")]
         public async Task<IActionResult> Index()
         {
             ViewData["message"] = "Post wall";
