@@ -23,15 +23,21 @@ namespace herokudocker
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddAuthentication()
+            .AddGoogle(options =>
+            {
+                options.ClientId = "513105318843-gj1slc9qe66q6nbscij1ib42bsdds7sv.apps.googleusercontent.com";
+                options.ClientSecret = "V2_gevsIitgK91tFMq09rQlc";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseHttpsRedirection();
-            
-                app.UseDeveloperExceptionPage();
-            
+
+            app.UseDeveloperExceptionPage();
+
             app.UseStaticFiles();
             app.UseRouting();
 

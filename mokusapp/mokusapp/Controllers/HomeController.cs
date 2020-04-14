@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using herokudocker.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace herokudocker.Controllers
 {
@@ -74,6 +75,7 @@ namespace herokudocker.Controllers
             return View("ViewPostDetail");
         }
 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             ViewData["message"] = "Post wall";
