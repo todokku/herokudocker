@@ -76,6 +76,14 @@ namespace herokudocker.Controllers
             return View("ViewPostDetail");
         }
 
+        [HttpPost]
+        [HttpGet]
+        [Route("signin-google")]
+        public IActionResult SigninGoogle()
+        {
+            return RedirectToAction("Index");
+        }
+
         [Authorize(AuthenticationSchemes = "Google")]
         public async Task<IActionResult> Index()
         {
