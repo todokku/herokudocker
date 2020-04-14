@@ -23,6 +23,7 @@ namespace herokudocker.Controllers
 
         [HttpGet]
         [Route("map")]
+        [Authorize(AuthenticationSchemes = "Google")]
         public IActionResult Map()
         {
             return View("Map");
@@ -84,7 +85,6 @@ namespace herokudocker.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize(AuthenticationSchemes = "Google")]
         public async Task<IActionResult> Index()
         {
             ViewData["message"] = "Post wall";
